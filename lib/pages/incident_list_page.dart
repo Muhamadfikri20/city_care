@@ -1,11 +1,20 @@
 import 'package:city_care/pages/incident_report_page.dart';
 import 'package:city_care/services/webservice.dart';
+import 'package:city_care/view_models/report_incident_view_model.dart';
 import 'package:city_care/widgets/incident_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class IncidentListPage extends StatelessWidget {
   Future<void> _navigateToReportIncidentPage(BuildContext context) async {
-    await Navigator.push(context, MaterialPageRoute(builder: (context) => IncidentReportPage(), fullscreenDialog: true));
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider(
+                  create: (context) => ReportIncidentViewModel(),
+                  child: IncidentReportPage(),
+                ),
+            fullscreenDialog: true));
   }
 
   @override
@@ -26,8 +35,7 @@ class IncidentListPage extends StatelessWidget {
                   child: FloatingActionButton(
                     child: Icon(Icons.add),
                     onPressed: () {
-                      Webservice().saveIncident();
-                      // _navigateToReportIncidentPage(context);
+                      _navigateToReportIncidentPage(context);
                     },
                   ),
                 ),
