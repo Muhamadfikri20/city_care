@@ -1,18 +1,17 @@
-
+import 'package:city_care/view_models/incident_view_model.dart';
 import 'package:flutter/material.dart';
 
 class IncidentList extends StatelessWidget {
-
+  final List<IncidentViewModel> incidents;
+  IncidentList({required this.incidents});
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 10,
+      itemCount: incidents.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text("Item $index")
-        );
+        final incident = incidents[index];
+        return ListTile(title: Text(incident.title));
       },
     );
   }
-
 }

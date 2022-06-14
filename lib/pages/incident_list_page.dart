@@ -1,11 +1,27 @@
 import 'package:city_care/pages/incident_report_page.dart';
 import 'package:city_care/services/webservice.dart';
+import 'package:city_care/view_models/incident_list_view_model.dart';
 import 'package:city_care/view_models/report_incident_view_model.dart';
 import 'package:city_care/widgets/incident_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class IncidentListPage extends StatelessWidget {
+class IncidentListPage extends StatefulWidget {
+  @override
+  State<IncidentListPage> createState() => _IncidentListPageState();
+}
+
+class _IncidentListPageState extends State<IncidentListPage> {
+  @override
+  void initState() {
+    super.initState();
+    _populateAllIncidents();
+  }
+
+  void _populateAllIncidents() {
+    Provider.of<IncidentListViewModel>(context, listen: false).getAllIncidents();
+  }
+
   Future<void> _navigateToReportIncidentPage(BuildContext context) async {
     await Navigator.push(
         context,
@@ -19,6 +35,7 @@ class IncidentListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final vm = Provider.of<IncidentListViewModel>(context);
     return Scaffold(
         appBar: AppBar(
           title: Text("Incidents"),
@@ -26,7 +43,7 @@ class IncidentListPage extends StatelessWidget {
         ),
         body: Stack(
           children: <Widget>[
-            IncidentList(),
+            IncidentList(incidents: vm.incidents),
             SafeArea(
               child: Align(
                 alignment: Alignment.bottomRight,
