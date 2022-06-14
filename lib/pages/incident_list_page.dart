@@ -1,4 +1,5 @@
 import 'package:city_care/pages/incident_report_page.dart';
+import 'package:city_care/services/webservice.dart';
 import 'package:city_care/widgets/incident_list.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,8 @@ class IncidentListPage extends StatelessWidget {
                   child: FloatingActionButton(
                     child: Icon(Icons.add),
                     onPressed: () {
-                      _navigateToReportIncidentPage(context);
+                      Webservice().saveIncident();
+                      // _navigateToReportIncidentPage(context);
                     },
                   ),
                 ),
